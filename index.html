@@ -22,20 +22,19 @@
             background: linear-gradient(135deg, #4f00ff, #8a00ff);
             box-shadow: 0 0 15px #8a00ff;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 0 20px;
             z-index: 1000;
         }
-        .header-left {
+        .header-left, .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-grow: 1; /* Équilibre les espaces */
         }
-        .header-right {
-            display: flex;
-            align-items: center;
-            margin-right: 20px;
+        .header-center {
+            flex-grow: 0; /* Garde le logo centré */
         }
         .header img {
             height: 60px;
@@ -89,7 +88,10 @@
                 <img src="spotify.png" alt="Spotify">
             </a>
         </div>
-        <img src="logo.png" alt="Logo">
+        <div class="header-center">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="header-right"></div> <!-- Pour équilibrer la barre -->
     </div>
 
     <h1>DJ AZERTY Release</h1>
