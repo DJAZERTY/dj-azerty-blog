@@ -33,8 +33,8 @@
             gap: 20px;
         }
         .header-left a img {
-            height: 50px; /* Uniformiser la taille des logos */
-            width: 50px; /* Assurer un bon ratio */
+            height: 50px;
+            width: 50px;
             object-fit: contain;
         }
         .header-center {
@@ -121,17 +121,68 @@
     <h1>DJ AZERTY Release</h1>
 
     <div class="container" id="songContainer">
-        <div class="song"><p>Infinity Loop Part I</p><button onclick="playAudio(this)">Play</button></div>
-        <div class="song"><p>Endless Waves</p><button onclick="playAudio(this)">Play</button></div>
-        <div class="song"><p>Cosmic Drift</p><button onclick="playAudio(this)">Play</button></div>
-        <div class="song"><p>Neon Velocity</p><button onclick="playAudio(this)">Play</button></div>
-        <div class="song"><p>Future Echoes</p><button onclick="playAudio(this)">Play</button></div>
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
+            <p>Infinity Loop Part I</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track2.mp3">
+            <p>Endless Waves</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track3.mp3">
+            <p>Cosmic Drift</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track4.mp3">
+            <p>Neon Velocity</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track5.mp3">
+            <p>Future Echoes</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
     </div>
 
+    <audio id="audioPlayer"></audio>
+
     <script>
-        function playAudio(button) {
-            alert("Lecture de la musique : " + button.parentElement.querySelector("p").textContent);
+        let audioPlayer = document.getElementById("audioPlayer");
+        let currentPlayingButton = null;
+
+        function playPause(button) {
+            let songDiv = button.parentElement;
+            let songUrl = songDiv.getAttribute("data-src");
+
+            if (audioPlayer.src !== songUrl) {
+                audioPlayer.src = songUrl;
+                audioPlayer.play();
+                updateButtonState(button, "Pause");
+            } else {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    updateButtonState(button, "Pause");
+                } else {
+                    audioPlayer.pause();
+                    updateButtonState(button, "Play");
+                }
+            }
+
+            if (currentPlayingButton && currentPlayingButton !== button) {
+                currentPlayingButton.textContent = "Play";
+            }
+
+            currentPlayingButton = button;
         }
+
+        function updateButtonState(button, state) {
+            button.textContent = state;
+        }
+
+        audioPlayer.addEventListener("ended", function() {
+            if (currentPlayingButton) {
+                currentPlayingButton.textContent = "Play";
+            }
+        });
 
         function filterSongs() {
             let input = document.querySelector(".search-bar").value.toLowerCase();
