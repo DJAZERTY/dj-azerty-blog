@@ -40,13 +40,6 @@
         .header img {
             height: 60px;
         }
-        .search-bar {
-            padding: 8px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-        }
         .container {
             margin-top: 100px;
             display: flex;
@@ -68,20 +61,10 @@
             justify-content: center;
             align-items: center;
         }
-        button {
-            background: #0ff;
+        iframe {
+            width: 100%;
+            height: 120px;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #000;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 0 10px #0ff;
-        }
-        button:hover {
-            background: #00f;
-            color: #fff;
-            box-shadow: 0 0 15px #00f;
         }
     </style>
 </head>
@@ -96,54 +79,13 @@
             </a>
         </div>
         <img src="logo.png" alt="Logo">
-        <div class="header-right">
-            <input type="text" class="search-bar" placeholder="Rechercher une musique..." onkeyup="searchSongs()">
-        </div>
     </div>
     <h1>DJ AZERTY release</h1>
-    <div class="container" id="songContainer">
-        <div class="song" data-title="Infinity Loop Part I">
+    <div class="container">
+        <div class="song">
             <p>Infinity Loop Part I</p>
-            <button onclick="playSong('https://audiomack.com/djazertyoff/song/infinity-loop-part-i?key=22032006', this)">Play</button>
+            <iframe src="https://audiomack.com/embed/song/djazertyoff/infinity-loop-part-i?key=22032006" scrolling="no"></iframe>
         </div>
-        <audio id="audioPlayer" style="display: none;"></audio>
     </div>
-
-    <script>
-        let currentAudio = document.getElementById('audioPlayer');
-        let currentButton = null;
-
-        function playSong(url, button) {
-            if (currentAudio.src === url && !currentAudio.paused) {
-                currentAudio.pause();
-                button.textContent = "Play";
-            } else {
-                currentAudio.src = url;
-                currentAudio.play();
-                
-                if (currentButton && currentButton !== button) {
-                    currentButton.textContent = "Play";
-                }
-                
-                button.textContent = "Pause";
-                currentButton = button;
-            }
-        }
-
-        function searchSongs() {
-            let input = document.querySelector('.search-bar').value.toLowerCase();
-            let songs = document.querySelectorAll('.song');
-            songs.forEach(song => {
-                let title = song.querySelector("p").textContent.toLowerCase();
-                song.style.display = title.includes(input) ? "flex" : "none";
-            });
-        }
-
-        currentAudio.addEventListener("ended", function () {
-            if (currentButton) {
-                currentButton.textContent = "Play";
-            }
-        });
-    </script>
 </body>
 </html>
