@@ -22,22 +22,34 @@
             background: linear-gradient(135deg, #4f00ff, #8a00ff);
             box-shadow: 0 0 15px #8a00ff;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             padding: 0 20px;
             z-index: 1000;
         }
-        .header-left, .header-right {
+        .header-left {
             display: flex;
             align-items: center;
             gap: 20px;
-            flex-grow: 1; /* Équilibre les espaces */
         }
         .header-center {
-            flex-grow: 0; /* Garde le logo centré */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .header img {
             height: 60px;
+        }
+        .search-bar {
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
         }
         .container {
             margin-top: 100px;
@@ -52,8 +64,7 @@
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px #8a00ff;
-            width: 18vw;
-            max-width: 200px;
+            width: 200px;
             aspect-ratio: 16 / 9;
             display: flex;
             flex-direction: column;
@@ -65,10 +76,12 @@
             border: none;
             padding: 10px 20px;
             font-size: 16px;
+            font-weight: bold;
             color: #000;
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 0 10px #0ff;
+            width: 100px; /* Taille fixe pour uniformiser */
         }
         button:hover {
             background: #00f;
@@ -88,10 +101,14 @@
                 <img src="spotify.png" alt="Spotify">
             </a>
         </div>
+
         <div class="header-center">
             <img src="logo.png" alt="Logo">
         </div>
-        <div class="header-right"></div> <!-- Pour équilibrer la barre -->
+
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Rechercher...">
+        </div>
     </div>
 
     <h1>DJ AZERTY Release</h1>
