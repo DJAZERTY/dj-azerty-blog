@@ -102,47 +102,59 @@
     </div>
     <h1>DJ AZERTY release</h1>
     <div class="container" id="songContainer">
-        <div class="song" data-title="Chanson 1">
-            <p>Infinty Loop Part I</p>
-            <button onclick="playSong('infinityloop1.mp3')">Play</button>
+        <div class="song" data-title="Infinity Loop Part I">
+            <p>Infinity Loop Part I</p>
+            <button onclick="playSong('infinityloop1.mp3', this)">Play</button>
         </div>
         <div class="song" data-title="Chanson 2">
             <p>Chanson 2</p>
-            <button onclick="playSong('chanson2.mp3')">Play</button>
+            <button onclick="playSong('chanson2.mp3', this)">Play</button>
         </div>
         <div class="song" data-title="Chanson 3">
             <p>Chanson 3</p>
-            <button onclick="playSong('chanson3.mp3')">Play</button>
+            <button onclick="playSong('chanson3.mp3', this)">Play</button>
         </div>
         <div class="song" data-title="Chanson 4">
             <p>Chanson 4</p>
-            <button onclick="playSong('chanson4.mp3')">Play</button>
+            <button onclick="playSong('chanson4.mp3', this)">Play</button>
         </div>
         <div class="song" data-title="Chanson 5">
             <p>Chanson 5</p>
-            <button onclick="playSong('chanson5.mp3')">Play</button>
+            <button onclick="playSong('chanson5.mp3', this)">Play</button>
         </div>
         <audio id="audioPlayer"></audio>
     </div>
 
     <script>
         let currentAudio = document.getElementById('audioPlayer');
-        
-        function playSong(file) {
-            if (currentAudio.src.includes(file) && !currentAudio.paused) {
+        let currentButton = null;
+
+        function playSong(file, button) {
+            let fullPath = location.origin + "/" + file;
+
+            if (currentAudio.src === fullPath && !currentAudio.paused) {
                 currentAudio.pause();
+                button.textContent = "Play";
             } else {
-                currentAudio.src = file;
+                currentAudio.src = fullPath;
                 currentAudio.play();
+                
+                // Réinitialiser l'ancien bouton si nécessaire
+                if (currentButton && currentButton !== button) {
+                    currentButton.textContent = "Play";
+                }
+
+                button.textContent = "Pause";
+                currentButton = button;
             }
         }
-        
+
         function searchSongs() {
             let input = document.querySelector('.search-bar').value.toLowerCase();
             let songs = document.querySelectorAll('.song');
-            
+
             songs.forEach(song => {
-                let title = song.getAttribute('data-title').toLowerCase();
+                let title = song.querySelector("p").textContent.toLowerCase();
                 if (title.includes(input)) {
                     song.style.display = "flex";
                 } else {
@@ -150,6 +162,13 @@
                 }
             });
         }
+
+        // Changer le bouton quand l'audio s'arrête
+        currentAudio.addEventListener("ended", function () {
+            if (currentButton) {
+                currentButton.textContent = "Play";
+            }
+        });
     </script>
 </body>
 </html>
