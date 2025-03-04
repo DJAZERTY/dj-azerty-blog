@@ -32,24 +32,31 @@
             align-items: center;
             gap: 20px;
         }
+        .header-left a img {
+            height: 50px; /* Uniformiser la taille des logos */
+            width: 50px; /* Assurer un bon ratio */
+            object-fit: contain;
+        }
         .header-center {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+        }
+        .header-center img {
+            height: 60px;
         }
         .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .header img {
-            height: 60px;
-        }
         .search-bar {
             padding: 5px;
             font-size: 16px;
             border: none;
             border-radius: 5px;
+            width: 200px;
+            text-align: center;
         }
         .container {
             margin-top: 100px;
@@ -81,7 +88,7 @@
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 0 10px #0ff;
-            width: 100px; /* Taille fixe pour uniformiser */
+            width: 100px;
         }
         button:hover {
             background: #00f;
@@ -107,37 +114,34 @@
         </div>
 
         <div class="header-right">
-            <input type="text" class="search-bar" placeholder="Rechercher...">
+            <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="filterSongs()">
         </div>
     </div>
 
     <h1>DJ AZERTY Release</h1>
 
-    <div class="container">
-        <div class="song">
-            <p>Infinity Loop Part I</p>
-            <button id="playPauseButton">Play</button>
-            <audio id="audioPlayer" src="https://ia801707.us.archive.org/4/items/track_202503/Track.mp3"></audio>
-        </div>
+    <div class="container" id="songContainer">
+        <div class="song"><p>Infinity Loop Part I</p><button onclick="playAudio(this)">Play</button></div>
+        <div class="song"><p>Endless Waves</p><button onclick="playAudio(this)">Play</button></div>
+        <div class="song"><p>Cosmic Drift</p><button onclick="playAudio(this)">Play</button></div>
+        <div class="song"><p>Neon Velocity</p><button onclick="playAudio(this)">Play</button></div>
+        <div class="song"><p>Future Echoes</p><button onclick="playAudio(this)">Play</button></div>
     </div>
 
     <script>
-        let audio = document.getElementById("audioPlayer");
-        let button = document.getElementById("playPauseButton");
+        function playAudio(button) {
+            alert("Lecture de la musique : " + button.parentElement.querySelector("p").textContent);
+        }
 
-        button.addEventListener("click", function() {
-            if (audio.paused) {
-                audio.play();
-                button.textContent = "Pause";
-            } else {
-                audio.pause();
-                button.textContent = "Play";
-            }
-        });
+        function filterSongs() {
+            let input = document.querySelector(".search-bar").value.toLowerCase();
+            let songs = document.querySelectorAll(".song");
 
-        audio.addEventListener("ended", function() {
-            button.textContent = "Play";
-        });
+            songs.forEach(song => {
+                let title = song.querySelector("p").textContent.toLowerCase();
+                song.style.display = title.includes(input) ? "flex" : "none";
+            });
+        }
     </script>
 
 </body>
