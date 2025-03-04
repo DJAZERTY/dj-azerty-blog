@@ -13,6 +13,27 @@
             margin: 0;
             padding: 0;
         }
+        /* FOOTER */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
+            box-shadow: 0 0 15px #8a00ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: #0ff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .footer img {
+            height: 40px;
+        }
+        
         .header {
             position: fixed;
             top: 0;
@@ -143,6 +164,11 @@
             <p>Future Echoes</p>
             <button onclick="playPause(this)">Play</button>
         </div>
+    </div>
+        <!-- Ajout du footer -->
+    <div class="footer">
+        <span>All rights reserved, DJ AZERTY ©</span>
+        <img src="logo.png" alt="Logo">
     </div>
 
     <audio id="audioPlayer"></audio>
