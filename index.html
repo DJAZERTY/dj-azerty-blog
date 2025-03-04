@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musique Néon</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
+            box-shadow: 0 0 15px #8a00ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .header img {
+            height: 60px;
+        }
+        .search-bar {
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+        .container {
+            margin-top: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .song {
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #8a00ff;
+            width: 18vw;
+            max-width: 200px;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        button {
+            background: #0ff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #000;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0ff;
+        }
+        button:hover {
+            background: #00f;
+            color: #fff;
+            box-shadow: 0 0 15px #00f;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.youtube.com/" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+            <a href="https://www.spotify.com/" target="_blank">
+                <img src="spotify.png" alt="Spotify">
+            </a>
+        </div>
+        <img src="logo.png" alt="Logo">
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Rechercher une musique..." onkeyup="searchSongs()">
+        </div>
+    </div>
+    <h1>Playlist Néon</h1>
+    <div class="container" id="songContainer">
+        <div class="song" data-title="Chanson 1">
+            <p>Chanson 1</p>
+            <button onclick="playSong('chanson1.mp3')">Play</button>
+        </div>
+        <div class="song" data-title="Chanson 2">
+            <p>Chanson 2</p>
+            <button onclick="playSong('chanson2.mp3')">Play</button>
+        </div>
+        <div class="song" data-title="Chanson 3">
+            <p>Chanson 3</p>
+            <button onclick="playSong('chanson3.mp3')">Play</button>
+        </div>
+        <div class="song" data-title="Chanson 4">
+            <p>Chanson 4</p>
+            <button onclick="playSong('chanson4.mp3')">Play</button>
+        </div>
+        <div class="song" data-title="Chanson 5">
+            <p>Chanson 5</p>
+            <button onclick="playSong('chanson5.mp3')">Play</button>
+        </div>
+        <audio id="audioPlayer"></audio>
+    </div>
+
+    <script>
+        let currentAudio = document.getElementById('audioPlayer');
+        
+        function playSong(file) {
+            if (currentAudio.src.includes(file) && !currentAudio.paused) {
+                currentAudio.pause();
+            } else {
+                currentAudio.src = file;
+                currentAudio.play();
+            }
+        }
+        
+        function searchSongs() {
+            let input = document.querySelector('.search-bar').value.toLowerCase();
+            let songs = document.querySelectorAll('.song');
+            
+            songs.forEach(song => {
+                let title = song.getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    song.style.display = "flex";
+                } else {
+                    song.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
