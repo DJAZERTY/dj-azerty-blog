@@ -104,44 +104,46 @@
     <div class="container" id="songContainer">
         <div class="song" data-title="Infinity Loop Part I">
             <p>Infinity Loop Part I</p>
-            <iframe scrolling="no" frameborder="0" allow="autoplay" 
-                src="https://audiomack.com/embed/song/djazertyoff/infinity-loop-part-i?key=22032006" 
-                width="100%" height="152"></iframe>
-            <button onclick="window.open('https://audiomack.com/djazertyoff/song/infinity-loop-part-i?key=22032006', '_blank')">Écouter sur Audiomack</button>
+            <button onclick="playSong('https://audiomack.com/djazertyoff/song/infinity-loop-part-i?key=22032006', this)">Play</button>
         </div>
-        <div class="song" data-title="Chanson 2">
-            <p>Chanson 2</p>
-            <button onclick="playSong('chanson2.mp3', this)">Play</button>
-        </div>
-        <div class="song" data-title="Chanson 3">
-            <p>Chanson 3</p>
-            <button onclick="playSong('chanson3.mp3', this)">Play</button>
-        </div>
-        <div class="song" data-title="Chanson 4">
-            <p>Chanson 4</p>
-            <button onclick="playSong('chanson4.mp3', this)">Play</button>
-        </div>
-        <div class="song" data-title="Chanson 5">
-            <p>Chanson 5</p>
-            <button onclick="playSong('chanson5.mp3', this)">Play</button>
-        </div>
-        <audio id="audioPlayer"></audio>
+        <audio id="audioPlayer" style="display: none;"></audio>
     </div>
 
     <script>
+        let currentAudio = document.getElementById('audioPlayer');
+        let currentButton = null;
+
+        function playSong(url, button) {
+            if (currentAudio.src === url && !currentAudio.paused) {
+                currentAudio.pause();
+                button.textContent = "Play";
+            } else {
+                currentAudio.src = url;
+                currentAudio.play();
+                
+                if (currentButton && currentButton !== button) {
+                    currentButton.textContent = "Play";
+                }
+                
+                button.textContent = "Pause";
+                currentButton = button;
+            }
+        }
+
         function searchSongs() {
             let input = document.querySelector('.search-bar').value.toLowerCase();
             let songs = document.querySelectorAll('.song');
-            
             songs.forEach(song => {
                 let title = song.querySelector("p").textContent.toLowerCase();
-                if (title.includes(input)) {
-                    song.style.display = "flex";
-                } else {
-                    song.style.display = "none";
-                }
+                song.style.display = title.includes(input) ? "flex" : "none";
             });
         }
+
+        currentAudio.addEventListener("ended", function () {
+            if (currentButton) {
+                currentButton.textContent = "Play";
+            }
+        });
     </script>
 </body>
 </html>
