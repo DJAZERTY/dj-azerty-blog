@@ -104,7 +104,10 @@
     <div class="container" id="songContainer">
         <div class="song" data-title="Infinity Loop Part I">
             <p>Infinity Loop Part I</p>
-            <button onclick="playSong('infinityloop1.mp3', this)">Play</button>
+            <iframe scrolling="no" frameborder="0" allow="autoplay" 
+                src="https://audiomack.com/embed/song/djazertyoff/infinity-loop-part-i?key=22032006" 
+                width="100%" height="152"></iframe>
+            <button onclick="window.open('https://audiomack.com/djazertyoff/song/infinity-loop-part-i?key=22032006', '_blank')">Écouter sur Audiomack</button>
         </div>
         <div class="song" data-title="Chanson 2">
             <p>Chanson 2</p>
@@ -126,33 +129,10 @@
     </div>
 
     <script>
-        let currentAudio = document.getElementById('audioPlayer');
-        let currentButton = null;
-
-        function playSong(file, button) {
-            let fullPath = location.origin + "/" + file;
-
-            if (currentAudio.src === fullPath && !currentAudio.paused) {
-                currentAudio.pause();
-                button.textContent = "Play";
-            } else {
-                currentAudio.src = fullPath;
-                currentAudio.play();
-                
-                // Réinitialiser l'ancien bouton si nécessaire
-                if (currentButton && currentButton !== button) {
-                    currentButton.textContent = "Play";
-                }
-
-                button.textContent = "Pause";
-                currentButton = button;
-            }
-        }
-
         function searchSongs() {
             let input = document.querySelector('.search-bar').value.toLowerCase();
             let songs = document.querySelectorAll('.song');
-
+            
             songs.forEach(song => {
                 let title = song.querySelector("p").textContent.toLowerCase();
                 if (title.includes(input)) {
@@ -162,13 +142,6 @@
                 }
             });
         }
-
-        // Changer le bouton quand l'audio s'arrête
-        currentAudio.addEventListener("ended", function () {
-            if (currentButton) {
-                currentButton.textContent = "Play";
-            }
-        });
     </script>
 </body>
 </html>
