@@ -61,14 +61,25 @@
             justify-content: center;
             align-items: center;
         }
-        iframe {
-            width: 100%;
-            height: 120px;
+        button {
+            background: #0ff;
             border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #000;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0ff;
+        }
+        button:hover {
+            background: #00f;
+            color: #fff;
+            box-shadow: 0 0 15px #00f;
         }
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="header-left">
             <a href="https://www.youtube.com/@DJ--AZERTY" target="_blank">
@@ -80,12 +91,35 @@
         </div>
         <img src="logo.png" alt="Logo">
     </div>
-    <h1>DJ AZERTY release</h1>
+
+    <h1>DJ AZERTY Release</h1>
+
     <div class="container">
         <div class="song">
             <p>Infinity Loop Part I</p>
-            <iframe src="https://audiomack.com/embed/song/djazertyoff/infinity-loop-part-i?key=22032006" scrolling="no"></iframe>
+            <button id="playPauseButton">Play</button>
+            <audio id="audioPlayer" src="https://archive.org/download/track_202503/track_202503.mp3"></audio>
         </div>
     </div>
+
+    <script>
+        let audio = document.getElementById("audioPlayer");
+        let button = document.getElementById("playPauseButton");
+
+        button.addEventListener("click", function() {
+            if (audio.paused) {
+                audio.play();
+                button.textContent = "Pause";
+            } else {
+                audio.pause();
+                button.textContent = "Play";
+            }
+        });
+
+        audio.addEventListener("ended", function() {
+            button.textContent = "Play";
+        });
+    </script>
+
 </body>
 </html>
