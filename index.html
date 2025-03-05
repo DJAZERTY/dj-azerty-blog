@@ -30,7 +30,7 @@
             font-weight: bold;
             font-size: 14px;
         }
-        .footer img {
+        .song img {
             height: 50px;
             margin-right: 40px; /* Ajoute une marge à droite pour éviter qu'il soit collé */
         }
@@ -180,11 +180,13 @@
             <p>Echoes</p>
             <button onclick="playPause(this)">Play</button>
         </div>
+        <div class="song" data-src="no_data">
+            <img src="logo.png" alt="Logo">
+        </div>
     </div>
         <!-- Ajout du footer -->
     <div class="footer">
         <span>All rights reserved, DJ AZERTY ©</span>
-        <img src="logo.png" alt="Logo">
     </div>
 
     <audio id="audioPlayer"></audio>
