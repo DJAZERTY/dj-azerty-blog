@@ -42,6 +42,14 @@
             padding: 0 20px;
             z-index: 1000;
         }
+        .search-bar {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            margin-left: 20px;
+        }
         .container {
             margin-top: 100px;
             display: flex;
@@ -115,11 +123,20 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .social-icons img {
+            width: 40px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>DJ AZERTY Release</h1>
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            <a href="https://www.spotify.com" target="_blank"><img src="spotify.png" alt="Spotify"></a>
+        </div>
+        <input type="text" class="search-bar" placeholder="Rechercher une musique..." onkeyup="searchSongs()">
     </div>
     <div class="container" id="songContainer">
         <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
@@ -139,21 +156,9 @@
     </div>
     <audio id="audioPlayer"></audio>
     <script>
-        function playPause(button) {
-            let audio = document.getElementById("audioPlayer");
-            let songDiv = button.parentElement;
-            let songUrl = songDiv.getAttribute("data-src");
-            if (audio.src !== songUrl) {
-                audio.src = songUrl;
-                audio.play();
-                button.textContent = "Pause";
-            } else if (audio.paused) {
-                audio.play();
-                button.textContent = "Pause";
-            } else {
-                audio.pause();
-                button.textContent = "Play";
-            }
+        function togglePlaylist() {
+            let playlistPage = document.getElementById("playlistPage");
+            playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
         }
         
         function addToPlaylist(button) {
@@ -166,11 +171,6 @@
             newSong.setAttribute("data-src", songUrl);
             newSong.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button>`;
             playlistContainer.appendChild(newSong);
-        }
-        
-        function togglePlaylist() {
-            let playlistPage = document.getElementById("playlistPage");
-            playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
         }
     </script>
 </body>
