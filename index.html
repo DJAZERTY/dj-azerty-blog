@@ -27,9 +27,7 @@
             color: #0ff;
             font-weight: bold;
             font-size: 14px;
-        }
-        .song img {
-            height: 100px;
+            padding: 0;
         }
         .header {
             position: fixed;
@@ -45,40 +43,87 @@
             padding: 0 20px;
             z-index: 1000;
         }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .header-left a img {
             height: 50px;
             width: 50px;
+            object-fit: contain;
         }
-        .playlist-container {
-            position: fixed;
-            right: 0;
-            top: 100px;
-            width: 250px;
-            height: calc(100% - 140px);
-            background: rgba(0, 0, 0, 0.8);
-            border-left: 2px solid #8a00ff;
-            box-shadow: -2px 0 10px #8a00ff;
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 40px;
+        }
+        .search-bar {
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            text-align: center;
+        }
+        .container {
+            margin-top: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .song {
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
             padding: 10px;
-            display: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #8a00ff;
+            width: 200px;
+            display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            justify-content: center;
+            align-items: center;
         }
         .playlist-button {
             position: fixed;
-            bottom: 50px;
+            bottom: 60px;
             right: 20px;
             background: #0ff;
-            color: #000;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
+            color: #000;
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 0 10px #0ff;
         }
-        .song button {
-            margin: 5px;
+        .playlist-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .close-playlist {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f00;
+            border: none;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -92,68 +137,43 @@
                 <img src="spotify.png" alt="Spotify">
             </a>
         </div>
-    </div>
-    <h1>DJ AZERTY Release</h1>
-    <div class="container" id="songContainer">
-        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
-            <p>Infinity Loop Part I</p>
-            <button onclick="playPause(this)">Play</button>
-            <button onclick="addToPlaylist(this)">Add List</button>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="filterSongs()">
         </div>
     </div>
-    <div class="playlist-container" id="playlist"></div>
-    <button class="playlist-button" onclick="togglePlaylist()">Playlist</button>
+    <h1>DJ AZERTY Release</h1>
+    <div class="container" id="songContainer"></div>
+    <button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
+    <div class="playlist-page" id="playlistPage">
+        <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
+        <h2>Playlist</h2>
+        <div id="playlistContainer">
+            <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
+                <p>Infinity Loop Part I</p>
+                <button onclick="playPause(this)">Play</button>
+            </div>
+        </div>
+    </div>
     <div class="footer">
         <span>All rights reserved, DJ AZERTY ©</span>
     </div>
     <audio id="audioPlayer"></audio>
     <script>
-        let audioPlayer = document.getElementById("audioPlayer");
-        let currentPlayingButton = null;
-        let playlistContainer = document.getElementById("playlist");
-
         function playPause(button) {
+            let audio = document.getElementById("audioPlayer");
             let songDiv = button.parentElement;
             let songUrl = songDiv.getAttribute("data-src");
-            if (audioPlayer.src !== songUrl) {
-                audioPlayer.src = songUrl;
-                audioPlayer.play();
-                updateButtonState(button, "Pause");
+            if (audio.src !== songUrl) {
+                audio.src = songUrl;
+                audio.play();
+                button.textContent = "Pause";
+            } else if (audio.paused) {
+                audio.play();
+                button.textContent = "Pause";
             } else {
-                if (audioPlayer.paused) {
-                    audioPlayer.play();
-                    updateButtonState(button, "Pause");
-                } else {
-                    audioPlayer.pause();
-                    updateButtonState(button, "Play");
-                }
+                audio.pause();
+                button.textContent = "Play";
             }
-            if (currentPlayingButton && currentPlayingButton !== button) {
-                currentPlayingButton.textContent = "Play";
-            }
-            currentPlayingButton = button;
-        }
-
-        function updateButtonState(button, state) {
-            button.textContent = state;
-        }
-
-        function addToPlaylist(button) {
-            let songDiv = button.parentElement;
-            let songTitle = songDiv.querySelector("p").textContent;
-            let songUrl = songDiv.getAttribute("data-src");
-            let item = document.createElement("div");
-            item.textContent = songTitle;
-            item.style.cursor = "pointer";
-            item.onclick = function () {
-                audioPlayer.src = songUrl;
-                audioPlayer.play();
-            };
-            playlistContainer.appendChild(item);
-        }
-
-        function togglePlaylist() {
-            playlistContainer.style.display = (playlistContainer.style.display === "flex") ? "none" : "flex";
         }
     </script>
 </body>
