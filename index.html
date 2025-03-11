@@ -264,11 +264,16 @@
             let songDiv = button.parentElement;
             let audioPlayer = document.getElementById("audioPlayer");
             let songUrl = songDiv.getAttribute("data-src");
-
+        
+            // Vérifier si le bouton appartient à la playlist ou à la liste principale
+            if (!songUrl) {
+                songUrl = songDiv.querySelector("p").getAttribute("data-src");
+            }
+        
             if (currentAudio && currentAudio !== audioPlayer) {
                 currentAudio.pause();
             }
-
+        
             if (audioPlayer.src === songUrl) {
                 if (audioPlayer.paused) {
                     audioPlayer.play();
@@ -282,9 +287,10 @@
                 audioPlayer.play();
                 button.textContent = "Pause";
             }
-
+        
             currentAudio = audioPlayer;
         }
+
 
         function togglePlaylist() {
             let playlistPage = document.getElementById("playlistPage");
