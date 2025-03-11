@@ -14,29 +14,42 @@
             padding: 0;
             overflow-x: hidden;
         }
-        .footer {
+        /* HEADER */
+        .header {
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 40px;
+            height: 80px;
             background: linear-gradient(135deg, #0044ff, #0088ff);
             box-shadow: 0 0 15px #0088ff;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            color: #0ff;
-            font-weight: bold;
-            font-size: 14px;
+            padding: 0 20px;
+            z-index: 1000;
         }
+        .search-bar {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            width: 200px;
+        }
+        .social-icons img {
+            width: 40px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        /* CONTENU */
         .container {
-            margin-top: 120px;
+            margin-top: 100px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
             padding: 20px;
-            box-sizing: border-box;
         }
         .song {
             background: linear-gradient(135deg, #0044ff, #0088ff);
@@ -61,6 +74,7 @@
             color: #000;
             box-shadow: 0 0 5px #00ff44;
         }
+        /* PLAYLIST */
         .playlist-page {
             position: fixed;
             top: 0;
@@ -95,6 +109,11 @@
             box-shadow: 0 0 5px #0088ff;
             cursor: grab;
         }
+        .playlist-container .song p {
+            margin: 0;
+            flex-grow: 1;
+            text-align: left;
+        }
         .remove-btn {
             background: #f00;
             color: white;
@@ -112,112 +131,109 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        .play-universal {
-            background: #00ff44;
-            padding: 10px;
-            font-size: 16px;
+        /* FOOTER */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            box-shadow: 0 0 15px #0088ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #0ff;
             font-weight: bold;
+            font-size: 14px;
+            padding: 0 20px;
+        }
+        .playlist-button {
+            background: #0ff;
             border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
             cursor: pointer;
             border-radius: 5px;
-            box-shadow: 0 0 10px #00ff44;
-            margin-bottom: 10px;
+            box-shadow: 0 0 10px #0ff;
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            <a href="https://www.spotify.com" target="_blank"><img src="spotify.png" alt="Spotify"></a>
+        </div>
+        <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="searchSongs()">
+    </div>
 
     <div class="container" id="songContainer">
-        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
+        <div class="song" data-src="track1.mp3">
             <p>Infinity Loop Part I</p>
             <button class="add-btn" onclick="addToPlaylist(this)">Ajouter à la Playlist</button>
         </div>
-        <div class="song" data-src="https://ia600602.us.archive.org/21/items/track_20250304/Track.mp3">
+        <div class="song" data-src="track2.mp3">
             <p>Black Hat</p>
             <button class="add-btn" onclick="addToPlaylist(this)">Ajouter à la Playlist</button>
         </div>
     </div>
 
-    <button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
-
     <div class="playlist-page" id="playlistPage">
         <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
         <h2>Playlist</h2>
-        <button class="play-universal" onclick="playFirstSong()">Play Playlist</button>
         <div class="playlist-container" id="playlistContainer"></div>
+        <button onclick="playFirstSong()">Play Playlist</button>
     </div>
 
     <div class="footer">
+        <button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
         <span>All rights reserved, DJ AZERTY ©</span>
     </div>
 
     <audio id="audioPlayer"></audio>
 
     <script>
-        document.addEventListener("DOMContentLoaded", loadPlaylist);
-
         function playFirstSong() {
-            let firstSong = document.querySelector("#playlistContainer .song");
-            if (firstSong) {
-                playSong(firstSong);
+            let playlistContainer = document.getElementById("playlistContainer");
+            if (playlistContainer.children.length > 0) {
+                let firstSong = playlistContainer.children[0];
+                let audioPlayer = document.getElementById("audioPlayer");
+                audioPlayer.src = firstSong.getAttribute("data-src");
+                audioPlayer.play();
+
+                audioPlayer.onended = function() {
+                    let nextSong = firstSong.nextElementSibling;
+                    if (nextSong) {
+                        playFirstSong(nextSong);
+                    }
+                };
             }
         }
 
-        function playSong(songDiv) {
-            let audioPlayer = document.getElementById("audioPlayer");
-            let songUrl = songDiv.getAttribute("data-src");
-            audioPlayer.src = songUrl;
-            audioPlayer.play();
+        function addToPlaylist(button) {
+            let songDiv = button.parentElement.cloneNode(true);
+            songDiv.querySelector("button").remove();
+            let removeBtn = document.createElement("button");
+            removeBtn.textContent = "Retirer";
+            removeBtn.className = "remove-btn";
+            removeBtn.onclick = () => songDiv.remove();
+            songDiv.appendChild(removeBtn);
+            document.getElementById("playlistContainer").appendChild(songDiv);
+        }
 
-            audioPlayer.onended = function() {
-                let nextSong = songDiv.nextElementSibling;
-                if (nextSong) {
-                    playSong(nextSong);
-                }
-            };
+        function searchSongs() {
+            let searchQuery = document.querySelector(".search-bar").value.toLowerCase();
+            document.querySelectorAll(".song").forEach(song => {
+                song.style.display = song.querySelector("p").textContent.toLowerCase().includes(searchQuery) ? "block" : "none";
+            });
         }
 
         function togglePlaylist() {
             let playlistPage = document.getElementById("playlistPage");
-            playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
-        }
-
-        function savePlaylist() {
-            let songs = [];
-            document.querySelectorAll("#playlistContainer .song").forEach(song => {
-                songs.push({
-                    title: song.querySelector("p").textContent,
-                    src: song.getAttribute("data-src")
-                });
-            });
-            localStorage.setItem("playlist", JSON.stringify(songs));
-        }
-
-        function loadPlaylist() {
-            let savedSongs = JSON.parse(localStorage.getItem("playlist")) || [];
-            savedSongs.forEach(song => addToPlaylistFromStorage(song.title, song.src));
-        }
-
-        function addToPlaylist(button) {
-            let songDiv = button.parentElement;
-            let songTitle = songDiv.querySelector("p").textContent;
-            let songSrc = songDiv.getAttribute("data-src");
-            addToPlaylistFromStorage(songTitle, songSrc);
-            savePlaylist();
-        }
-
-        function addToPlaylistFromStorage(title, src) {
-            let playlistContainer = document.getElementById("playlistContainer");
-            let songDiv = document.createElement("div");
-            songDiv.classList.add("song");
-            songDiv.setAttribute("data-src", src);
-            songDiv.innerHTML = `<p>${title}</p><button class="remove-btn" onclick="removeFromPlaylist(this)">Retirer</button>`;
-            playlistContainer.appendChild(songDiv);
-        }
-
-        function removeFromPlaylist(button) {
-            button.parentElement.remove();
-            savePlaylist();
+            playlistPage.style.display = (playlistPage.style.display === "flex") ? "none" : "flex";
         }
     </script>
 </body>
