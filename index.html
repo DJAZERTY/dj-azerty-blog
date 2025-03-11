@@ -73,6 +73,9 @@
             width: 200px;
             text-align: center;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .song button {
             margin-top: 10px;
@@ -312,7 +315,7 @@
             let playlistContainer = document.getElementById("playlistContainer");
             let songDiv = document.createElement("div");
             songDiv.classList.add("song");
-            songDiv.innerHTML = `<p>${songTitle}</p><button onclick="removeFromPlaylist(this)">Remove</button>`;
+            songDiv.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button><button onclick="removeFromPlaylist(this)">Remove</button>`;
             playlistContainer.appendChild(songDiv);
         }
 
