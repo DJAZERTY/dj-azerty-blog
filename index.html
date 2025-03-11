@@ -27,10 +27,9 @@
             color: #0ff;
             font-weight: bold;
             font-size: 14px;
-            padding: 0; /* Supprime le padding */
         }
         .song img {
-            height: 100px
+            height: 100px;
         }
         .header {
             position: fixed;
@@ -46,80 +45,44 @@
             padding: 0 20px;
             z-index: 1000;
         }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
         .header-left a img {
             height: 50px;
             width: 50px;
-            object-fit: contain;
         }
-        .header-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .header-center img {
-            height: 60px;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-right: 40px;
-        }
-
-        .search-bar {
-            padding: 5px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            width: 200px;
-            text-align: center;
-        }
-        .container {
-            margin-top: 100px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-        .song {
-            background: linear-gradient(135deg, #4f00ff, #8a00ff);
+        .playlist-container {
+            position: fixed;
+            right: 0;
+            top: 100px;
+            width: 250px;
+            height: calc(100% - 140px);
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 2px solid #8a00ff;
+            box-shadow: -2px 0 10px #8a00ff;
             padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #8a00ff;
-            width: 200px;
-            aspect-ratio: 16 / 9;
-            display: flex;
+            display: none;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            overflow-y: auto;
         }
-        button {
+        .playlist-button {
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
             background: #0ff;
+            color: #000;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
-            color: #000;
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 0 10px #0ff;
-            width: 100px;
         }
-        button:hover {
-            background: #00f;
-            color: #fff;
-            box-shadow: 0 0 15px #00f;
+        .song button {
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-
     <div class="header">
         <div class="header-left">
             <a href="https://www.youtube.com/@DJ--AZERTY" target="_blank">
@@ -129,97 +92,29 @@
                 <img src="spotify.png" alt="Spotify">
             </a>
         </div>
-
-        <div class="header-right">
-            <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="filterSongs()">
-        </div>
     </div>
-
     <h1>DJ AZERTY Release</h1>
-
     <div class="container" id="songContainer">
         <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
             <p>Infinity Loop Part I</p>
             <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia600602.us.archive.org/21/items/track_20250304/Track.mp3">
-            <p>Black Hat</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia903206.us.archive.org/35/items/track_20250305/Track.mp3">
-            <p>Breaking Code</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia801507.us.archive.org/14/items/clip_20250305/Clip.mp3">
-            <p>Loop of You</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://archive.org/download/track_20250305_1330/Track.mp3">
-            <p>White Hat</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia600809.us.archive.org/1/items/track_20250305_1357/Track.mp3">
-            <p>Timeless Part I</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia600702.us.archive.org/33/items/track_20250305_1402/Track.mp3">
-            <p>Timeless Part II</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia601509.us.archive.org/32/items/track_20250305_1416/Track.mp3">
-            <p>Infinity Loop Part II</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia601800.us.archive.org/4/items/track_20250305_1420/Track.mp3">
-            <p>Paint Dream</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia801400.us.archive.org/24/items/track_20250305_1424/Track.mp3">
-            <p>Echoes</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia600702.us.archive.org/26/items/track_20250307/Track.mp3">
-            <p>Lost In Your Fire</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia600107.us.archive.org/7/items/track_20250307_1244/Track.mp3">
-            <p>Light Up the Sky</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia601507.us.archive.org/5/items/track_20250307_1625/Track.mp3">
-            <p>Gravity Shift</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia801609.us.archive.org/24/items/track_20250311/Track.mp3">
-            <p>Fragments of Time</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia800608.us.archive.org/30/items/track_20250311_1210/Track.mp3">
-            <p>Lost in Between Part I</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song" data-src="https://ia600608.us.archive.org/30/items/track_20250311_1210/TrackII.mp3">
-            <p>Lost in Between Part II</p>
-            <button onclick="playPause(this)">Play</button>
-        </div>
-        <div class="song">
-            <img src="logo.png" alt="Logo">
+            <button onclick="addToPlaylist(this)">Add List</button>
         </div>
     </div>
+    <div class="playlist-container" id="playlist"></div>
+    <button class="playlist-button" onclick="togglePlaylist()">Playlist</button>
     <div class="footer">
         <span>All rights reserved, DJ AZERTY ©</span>
     </div>
-
     <audio id="audioPlayer"></audio>
-
     <script>
         let audioPlayer = document.getElementById("audioPlayer");
         let currentPlayingButton = null;
+        let playlistContainer = document.getElementById("playlist");
 
         function playPause(button) {
             let songDiv = button.parentElement;
             let songUrl = songDiv.getAttribute("data-src");
-
             if (audioPlayer.src !== songUrl) {
                 audioPlayer.src = songUrl;
                 audioPlayer.play();
@@ -233,11 +128,9 @@
                     updateButtonState(button, "Play");
                 }
             }
-
             if (currentPlayingButton && currentPlayingButton !== button) {
                 currentPlayingButton.textContent = "Play";
             }
-
             currentPlayingButton = button;
         }
 
@@ -245,22 +138,23 @@
             button.textContent = state;
         }
 
-        audioPlayer.addEventListener("ended", function() {
-            if (currentPlayingButton) {
-                currentPlayingButton.textContent = "Play";
-            }
-        });
+        function addToPlaylist(button) {
+            let songDiv = button.parentElement;
+            let songTitle = songDiv.querySelector("p").textContent;
+            let songUrl = songDiv.getAttribute("data-src");
+            let item = document.createElement("div");
+            item.textContent = songTitle;
+            item.style.cursor = "pointer";
+            item.onclick = function () {
+                audioPlayer.src = songUrl;
+                audioPlayer.play();
+            };
+            playlistContainer.appendChild(item);
+        }
 
-        function filterSongs() {
-            let input = document.querySelector(".search-bar").value.toLowerCase();
-            let songs = document.querySelectorAll(".song");
-
-            songs.forEach(song => {
-                let title = song.querySelector("p").textContent.toLowerCase();
-                song.style.display = title.includes(input) ? "flex" : "none";
-            });
+        function togglePlaylist() {
+            playlistContainer.style.display = (playlistContainer.style.display === "flex") ? "none" : "flex";
         }
     </script>
-
 </body>
 </html>
