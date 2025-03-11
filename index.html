@@ -73,9 +73,7 @@
             width: 200px;
             text-align: center;
             flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            cursor: pointer;
         }
         .song button {
             margin-top: 10px;
@@ -130,6 +128,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            align-items: center;
         }
         .playlist-container .song {
             display: flex;
@@ -140,6 +139,7 @@
             border-radius: 5px;
             width: 100%;
             box-shadow: 0 0 5px #0088ff;
+            cursor: grab;
         }
         .playlist-container .song p {
             margin: 0;
@@ -249,7 +249,7 @@
     <div class="playlist-page" id="playlistPage">
         <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
         <h2>Playlist</h2>
-        <div class="playlist-container" id="playlistContainer"></div>
+        <div class="playlist-container" id="playlistContainer" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
     <div class="footer">
         <span>All rights reserved, DJ AZERTY ©</span>
@@ -315,7 +315,8 @@
             let playlistContainer = document.getElementById("playlistContainer");
             let songDiv = document.createElement("div");
             songDiv.classList.add("song");
-            songDiv.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button><button onclick="removeFromPlaylist(this)">Remove</button>`;
+            songDiv.setAttribute("draggable", "true");
+            songDiv.innerHTML = `<p>${songTitle}</p><button onclick="removeFromPlaylist(this)">Remove</button><button onclick="playPause(this)">Play</button>`;
             playlistContainer.appendChild(songDiv);
         }
 
@@ -337,6 +338,19 @@
                 }
             });
         }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            let draggedElement = document.querySelector('.dragging');
+            let targetElement = ev.target;
+            targetElement.parentElement.insertBefore(draggedElement, targetElement);
+            savePlaylist();
+        }
+
     </script>
 </body>
 </html>
