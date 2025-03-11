@@ -48,7 +48,8 @@
             border-radius: 5px;
             border: none;
             outline: none;
-            margin-left: 20px;
+            margin-right: 20px;
+            width: 250px;
         }
         .container {
             margin-top: 100px;
@@ -156,11 +157,39 @@
     </div>
     <audio id="audioPlayer"></audio>
     <script>
+        let currentAudio = null;
+
+        function playPause(button) {
+            let songDiv = button.parentElement;
+            let audioPlayer = document.getElementById("audioPlayer");
+            let songUrl = songDiv.getAttribute("data-src");
+
+            if (currentAudio && currentAudio !== audioPlayer) {
+                currentAudio.pause(); // Pause the previous song if it's playing
+            }
+
+            if (audioPlayer.src === songUrl) {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    button.textContent = "Pause";
+                } else {
+                    audioPlayer.pause();
+                    button.textContent = "Play";
+                }
+            } else {
+                audioPlayer.src = songUrl;
+                audioPlayer.play();
+                button.textContent = "Pause";
+            }
+
+            currentAudio = audioPlayer;
+        }
+
         function togglePlaylist() {
             let playlistPage = document.getElementById("playlistPage");
             playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
         }
-        
+
         function addToPlaylist(button) {
             let songDiv = button.parentElement;
             let songUrl = songDiv.getAttribute("data-src");
@@ -169,8 +198,26 @@
             let newSong = document.createElement("div");
             newSong.classList.add("song");
             newSong.setAttribute("data-src", songUrl);
-            newSong.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button>`;
+            newSong.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button><button class="remove-btn" onclick="removeFromPlaylist(this)">Supprimer</button>`;
             playlistContainer.appendChild(newSong);
+        }
+
+        function removeFromPlaylist(button) {
+            button.parentElement.remove();
+        }
+
+        function searchSongs() {
+            let query = document.querySelector('.search-bar').value.toLowerCase();
+            let songs = document.querySelectorAll('.song');
+
+            songs.forEach(function(song) {
+                let title = song.querySelector('p').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    song.style.display = "block";
+                } else {
+                    song.style.display = "none";
+                }
+            });
         }
     </script>
 </body>
