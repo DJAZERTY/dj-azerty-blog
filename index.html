@@ -19,15 +19,14 @@
             left: 0;
             width: 100%;
             height: 40px;
-            background: linear-gradient(135deg, #4f00ff, #8a00ff);
-            box-shadow: 0 0 15px #8a00ff;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            box-shadow: 0 0 15px #0088ff;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #0ff;
             font-weight: bold;
             font-size: 14px;
-            padding: 0;
         }
         .header {
             position: fixed;
@@ -35,37 +34,13 @@
             left: 0;
             width: 100%;
             height: 80px;
-            background: linear-gradient(135deg, #4f00ff, #8a00ff);
-            box-shadow: 0 0 15px #8a00ff;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            box-shadow: 0 0 15px #0088ff;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
             z-index: 1000;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .header-left a img {
-            height: 50px;
-            width: 50px;
-            object-fit: contain;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-right: 40px;
-        }
-        .search-bar {
-            padding: 5px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            width: 200px;
-            text-align: center;
         }
         .container {
             margin-top: 100px;
@@ -76,15 +51,30 @@
             padding: 20px;
         }
         .song {
-            background: linear-gradient(135deg, #4f00ff, #8a00ff);
-            padding: 10px;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #8a00ff;
-            width: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            box-shadow: 0 0 10px #0088ff;
+            width: 250px;
+            text-align: center;
+        }
+        .song button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .play-btn {
+            background: #0ff;
+            color: #000;
+            box-shadow: 0 0 5px #0ff;
+        }
+        .add-btn {
+            background: #00ff44;
+            color: #000;
+            box-shadow: 0 0 5px #00ff44;
         }
         .playlist-button {
             position: fixed;
@@ -129,30 +119,20 @@
 </head>
 <body>
     <div class="header">
-        <div class="header-left">
-            <a href="https://www.youtube.com/@DJ--AZERTY" target="_blank">
-                <img src="youtube.png" alt="YouTube">
-            </a>
-            <a href="https://www.spotify.com/" target="_blank">
-                <img src="spotify.png" alt="Spotify">
-            </a>
-        </div>
-        <div class="header-right">
-            <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="filterSongs()">
+        <h1>DJ AZERTY Release</h1>
+    </div>
+    <div class="container" id="songContainer">
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
+            <p>Infinity Loop Part I</p>
+            <button class="play-btn" onclick="playPause(this)">Play</button>
+            <button class="add-btn" onclick="addToPlaylist(this)">Ajouter à la Playlist</button>
         </div>
     </div>
-    <h1>DJ AZERTY Release</h1>
-    <div class="container" id="songContainer"></div>
     <button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
     <div class="playlist-page" id="playlistPage">
         <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
         <h2>Playlist</h2>
-        <div id="playlistContainer">
-            <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
-                <p>Infinity Loop Part I</p>
-                <button onclick="playPause(this)">Play</button>
-            </div>
-        </div>
+        <div id="playlistContainer"></div>
     </div>
     <div class="footer">
         <span>All rights reserved, DJ AZERTY ©</span>
@@ -174,6 +154,23 @@
                 audio.pause();
                 button.textContent = "Play";
             }
+        }
+        
+        function addToPlaylist(button) {
+            let songDiv = button.parentElement;
+            let songUrl = songDiv.getAttribute("data-src");
+            let songTitle = songDiv.querySelector("p").textContent;
+            let playlistContainer = document.getElementById("playlistContainer");
+            let newSong = document.createElement("div");
+            newSong.classList.add("song");
+            newSong.setAttribute("data-src", songUrl);
+            newSong.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button>`;
+            playlistContainer.appendChild(newSong);
+        }
+        
+        function togglePlaylist() {
+            let playlistPage = document.getElementById("playlistPage");
+            playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
         }
     </script>
 </body>
