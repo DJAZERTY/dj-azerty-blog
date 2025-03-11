@@ -53,7 +53,7 @@
             border-radius: 5px;
             border: none;
             outline: none;
-            margin-left: 20px;
+            margin-right: 20px; /* 20px from the right edge */
             width: 250px;
         }
         .container {
@@ -69,7 +69,7 @@
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 10px #0088ff;
-            width: 200px; /* Réduire la largeur des boîtes */
+            width: 200px; /* Largeur des boîtes de chanson */
             text-align: center;
         }
         .song button {
@@ -116,6 +116,9 @@
             align-items: center;
             justify-content: center;
             z-index: 2000;
+        }
+        .playlist-page .song {
+            width: 200px; /* Même largeur que les boîtes dans le container principal */
         }
         .close-playlist {
             position: absolute;
