@@ -1,265 +1,339 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DJ AZERTY BLOG</title>
-<style>
-    body {
-        background-color: #0a0a0a;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-    }
-    .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 40px;
-        background: linear-gradient(135deg, #0044ff, #0088ff);
-        box-shadow: 0 0 15px #0088ff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #0ff;
-        font-weight: bold;
-        font-size: 14px;
-    }
-    .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 80px;
-        background: linear-gradient(135deg, #0044ff, #0088ff);
-        box-shadow: 0 0 15px #0088ff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        z-index: 1000;
-        position: relative; /* Ajouté pour que la barre de recherche soit positionnée relativement à ce conteneur */
-    }
-    
-    .search-bar {
-        position: absolute;
-        padding: 5px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-        width: 200px; /* Taille ajustée */
-        right: 20px; /* Place la barre à 20px du bord droit du header */
-        top: 50%; /* Aligne verticalement au centre du header */
-        transform: translateY(-50%); /* Pour un alignement vertical parfait */
-    }
-    .container {
-        margin-top: 120px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        padding: 20px;
-    }
-    .song {
-        background: linear-gradient(135deg, #0044ff, #0088ff);
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #0088ff;
-        width: 200px;
-        text-align: center;
-    }
-    .song button {
-        margin-top: 10px;
-        padding: 8px 12px;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        border-radius: 5px;
-    }
-    .play-btn {
-        background: #0ff;
-        color: #000;
-        box-shadow: 0 0 5px #0ff;
-    }
-    .add-btn {
-        background: #00ff44;
-        color: #000;
-        box-shadow: 0 0 5px #00ff44;
-    }
-    .playlist-button {
-        position: fixed;
-        bottom: 60px;
-        right: 20px;
-        background: #0ff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #000;
-        cursor: pointer;
-        border-radius: 5px;
-        box-shadow: 0 0 10px #0ff;
-    }
-    .playlist-page {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 2000;
-        padding: 20px;
-    }
-    .playlist-container {
-        width: 80%;
-        max-width: 600px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .playlist-container .song {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: linear-gradient(135deg, #0044ff, #0088ff);
-        padding: 10px 15px;
-        border-radius: 5px;
-        width: 100%;
-        box-shadow: 0 0 5px #0088ff;
-    }
-    .playlist-container .song p {
-        margin: 0;
-        flex-grow: 1;
-        text-align: left;
-    }
-    .playlist-container .song button {
-        margin-left: 10px;
-    }
-    .close-playlist {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #f00;
-        border: none;
-        padding: 10px;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-    .social-icons img {
-        width: 40px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ AZERTY BLOG</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            box-shadow: 0 0 15px #0088ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0ff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            box-shadow: 0 0 15px #0088ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            position: relative;
+        }
+        .search-bar {
+            position: absolute;
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            width: 200px;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .container {
+            margin-top: 120px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .song {
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #0088ff;
+            width: 200px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .song button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .play-btn {
+            background: #0ff;
+            color: #000;
+            box-shadow: 0 0 5px #0ff;
+        }
+        .add-btn {
+            background: #00ff44;
+            color: #000;
+            box-shadow: 0 0 5px #00ff44;
+        }
+        .playlist-button {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            background: #0ff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0ff;
+        }
+        .playlist-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .playlist-container {
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .playlist-container .song {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            padding: 10px 15px;
+            border-radius: 5px;
+            width: 100%;
+            box-shadow: 0 0 5px #0088ff;
+        }
+        .playlist-container .song p {
+            margin: 0;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .playlist-container .song button {
+            margin-left: 10px;
+        }
+        .close-playlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f00;
+            border: none;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .social-icons img {
+            width: 40px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .header {
+                height: 70px;
+                padding: 0 15px;
+            }
+
+            .search-bar {
+                width: 180px;
+            }
+
+            .container {
+                margin-top: 100px;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .song {
+                width: 160px;
+                padding: 12px;
+            }
+
+            .playlist-button {
+                bottom: 50px;
+                right: 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                height: 60px;
+                padding: 0 10px;
+            }
+
+            .search-bar {
+                width: 150px;
+            }
+
+            .container {
+                margin-top: 80px;
+                gap: 8px;
+                padding: 8px;
+            }
+
+            .song {
+                width: 140px;
+                padding: 10px;
+            }
+
+            .playlist-button {
+                bottom: 40px;
+                right: 5px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="header">
-    <div class="social-icons">
-        <a href="https://www.youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
-        <a href="https://www.spotify.com" target="_blank"><img src="spotify.png" alt="Spotify"></a>
+    <div class="header">
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            <a href="https://www.spotify.com" target="_blank"><img src="spotify.png" alt="Spotify"></a>
+        </div>
+        <input type="text" class="search-bar" placeholder="Rechercher une musique..." onkeyup="searchSongs()">
     </div>
-    <input type="text" class="search-bar" placeholder="Rechercher une musique..." onkeyup="searchSongs()">
-</div>
-<div class="container" id="songContainer">
-    <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
-        <p>Infinity Loop Part I</p>
-        <button class="play-btn" onclick="playPause(this)">Play</button>
-        <button class="add-btn" onclick="addToPlaylist(this)">Add to List</button>
+    <div class="container" id="songContainer">
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
+            <p>Infinity Loop Part I</p>
+            <button class="play-btn" onclick="playPause(this)">Play</button>
+            <button class="add-btn" onclick="addToPlaylist(this)">Add to List</button>
+        </div>
+        <div class="song" data-src="https://ia600602.us.archive.org/21/items/track_20250304/Track.mp3">
+            <p>Black Hat</p>
+            <button class="play-btn" onclick="playPause(this)">Play</button>
+            <button class="add-btn" onclick="addToPlaylist(this)">Add to List</button>
+        </div>
     </div>
-    <div class="song" data-src="https://ia600602.us.archive.org/21/items/track_20250304/Track.mp3">
-        <p>Black Hat</p>
-        <button class="play-btn" onclick="playPause(this)">Play</button>
-        <button class="add-btn" onclick="addToPlaylist(this)">Add to List</button>
+    <button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
+    <div class="playlist-page" id="playlistPage">
+        <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
+        <h2>Playlist</h2>
+        <div class="playlist-container" id="playlistContainer"></div>
     </div>
-</div>
-<button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
-<div class="playlist-page" id="playlistPage">
-    <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
-    <h2>Playlist</h2>
-    <div class="playlist-container" id="playlistContainer"></div>
-</div>
-<div class="footer">
-    <span>All rights reserved, DJ AZERTY ©</span>
-</div>
-<audio id="audioPlayer"></audio>
-<script>
-    document.addEventListener("DOMContentLoaded", loadPlaylist);
+    <div class="footer">
+        <span>All rights reserved, DJ AZERTY ©</span>
+    </div>
+    <audio id="audioPlayer"></audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", loadPlaylist);
 
-    let currentAudio = null;
+        let currentAudio = null;
 
-    function playPause(button) {
-        let songDiv = button.parentElement;
-        let audioPlayer = document.getElementById("audioPlayer");
-        let songUrl = songDiv.getAttribute("data-src");
+        function playPause(button) {
+            let songDiv = button.parentElement;
+            let audioPlayer = document.getElementById("audioPlayer");
+            let songUrl = songDiv.getAttribute("data-src");
 
-        if (currentAudio && currentAudio !== audioPlayer) {
-            currentAudio.pause();
-        }
+            if (currentAudio && currentAudio !== audioPlayer) {
+                currentAudio.pause();
+            }
 
-        if (audioPlayer.src === songUrl) {
-            if (audioPlayer.paused) {
+            if (audioPlayer.src === songUrl) {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    button.textContent = "Pause";
+                } else {
+                    audioPlayer.pause();
+                    button.textContent = "Play";
+                }
+            } else {
+                audioPlayer.src = songUrl;
                 audioPlayer.play();
                 button.textContent = "Pause";
-            } else {
-                audioPlayer.pause();
-                button.textContent = "Play";
             }
-        } else {
-            audioPlayer.src = songUrl;
-            audioPlayer.play();
-            button.textContent = "Pause";
+
+            currentAudio = audioPlayer;
         }
 
-        currentAudio = audioPlayer;
-    }
+        function togglePlaylist() {
+            let playlistPage = document.getElementById("playlistPage");
+            playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
+        }
 
-    function togglePlaylist() {
-        let playlistPage = document.getElementById("playlistPage");
-        playlistPage.style.display = (playlistPage.style.display === "flex" ? "none" : "flex");
-    }
+        function savePlaylist() {
+            let songs = [];
+            document.querySelectorAll("#playlistContainer .song p").forEach(song => {
+                songs.push(song.textContent);
+            });
+            localStorage.setItem("playlist", JSON.stringify(songs));
+        }
 
-    function savePlaylist() {
-        let songs = [];
-        document.querySelectorAll("#playlistContainer .song p").forEach(song => {
-            songs.push(song.textContent);
-        });
-        localStorage.setItem("playlist", JSON.stringify(songs));
-    }
+        function loadPlaylist() {
+            let savedSongs = JSON.parse(localStorage.getItem("playlist")) || [];
+            let playlistContainer = document.getElementById("playlistContainer");
+            savedSongs.forEach(songTitle => addToPlaylistFromStorage(songTitle));
+        }
 
-    function loadPlaylist() {
-        let savedSongs = JSON.parse(localStorage.getItem("playlist")) || [];
-        let playlistContainer = document.getElementById("playlistContainer");
-        savedSongs.forEach(songTitle => addToPlaylistFromStorage(songTitle));
-    }
+        function addToPlaylist(button) {
+            let songTitle = button.parentElement.querySelector("p").textContent;
+            addToPlaylistFromStorage(songTitle);
+            savePlaylist();
+        }
 
-    function addToPlaylist(button) {
-        let songTitle = button.parentElement.querySelector("p").textContent;
-        addToPlaylistFromStorage(songTitle);
-        savePlaylist();
-    }
+        function addToPlaylistFromStorage(songTitle) {
+            let playlistContainer = document.getElementById("playlistContainer");
+            let songDiv = document.createElement("div");
+            songDiv.classList.add("song");
+            songDiv.innerHTML = `<p>${songTitle}</p><button onclick="removeFromPlaylist(this)">Remove</button>`;
+            playlistContainer.appendChild(songDiv);
+        }
 
-    function addToPlaylistFromStorage(songTitle) {
-        let playlistContainer = document.getElementById("playlistContainer");
-        let newSong = document.createElement("div");
-        newSong.classList.add("song");
-        newSong.innerHTML = <p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button><button onclick="removeFromPlaylist(this)">Retirer</button>;
-        playlistContainer.appendChild(newSong);
-    }
+        function removeFromPlaylist(button) {
+            button.parentElement.remove();
+            savePlaylist();
+        }
 
-    function removeFromPlaylist(button) {
-        button.parentElement.remove();
-        savePlaylist();
-    }
-</script>
+        function searchSongs() {
+            let searchQuery = document.querySelector(".search-bar").value.toLowerCase();
+            let songs = document.querySelectorAll(".song");
+
+            songs.forEach(song => {
+                let songTitle = song.querySelector("p").textContent.toLowerCase();
+                if (songTitle.includes(searchQuery)) {
+                    song.style.display = "block";
+                } else {
+                    song.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
