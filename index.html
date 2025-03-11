@@ -41,16 +41,20 @@
         align-items: center;
         padding: 0 20px;
         z-index: 1000;
+        position: relative; /* Ajouté pour que la barre de recherche soit positionnée relativement à ce conteneur */
     }
+    
     .search-bar {
-        position : absolute;
+        position: absolute;
         padding: 5px;
         font-size: 16px;
         border-radius: 5px;
         border: none;
         outline: none;
         width: 200px; /* Taille ajustée */
-        right: 20px; /* Ajout d'un espace à droite */
+        right: 20px; /* Place la barre à 20px du bord droit du header */
+        top: 50%; /* Aligne verticalement au centre du header */
+        transform: translateY(-50%); /* Pour un alignement vertical parfait */
     }
     .container {
         margin-top: 120px;
