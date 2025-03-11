@@ -48,12 +48,12 @@
             border-radius: 5px;
             border: none;
             outline: none;
-            width: 250px;
+            width: 230px; /* Réduction de 20px */
             margin-right: 20px;
             margin-left: auto; /* Pousse la barre de recherche à droite */
         }
         .container {
-            margin-top: 120px; /* Pour éviter que les chansons se superposent avec le header */
+            margin-top: 120px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -65,7 +65,7 @@
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 10px #0088ff;
-            width: 200px; /* Largeur des boîtes de chanson */
+            width: 200px;
             text-align: center;
         }
         .song button {
@@ -112,16 +112,32 @@
             align-items: center;
             justify-content: center;
             z-index: 2000;
-        }
-        .playlist-page .song {
-            width: 200px; /* Même largeur que les boîtes dans le container principal */
-            margin-bottom: 10px; /* Espacement entre les boîtes dans la playlist */
+            padding: 20px;
         }
         .playlist-container {
+            width: 80%;
+            max-width: 600px;
             display: flex;
-            flex-wrap: wrap; /* Permet de faire passer les éléments sur plusieurs lignes si nécessaire */
-            justify-content: center;
-            gap: 15px; /* Espacement entre les boîtes dans la playlist */
+            flex-direction: column;
+            gap: 10px; /* Espacement entre chaque musique */
+        }
+        .playlist-container .song {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #0044ff, #0088ff);
+            padding: 10px 15px;
+            border-radius: 5px;
+            width: 100%;
+            box-shadow: 0 0 5px #0088ff;
+        }
+        .playlist-container .song p {
+            margin: 0;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .playlist-container .song button {
+            margin-left: 10px;
         }
         .close-playlist {
             position: absolute;
@@ -181,7 +197,7 @@
             let songUrl = songDiv.getAttribute("data-src");
 
             if (currentAudio && currentAudio !== audioPlayer) {
-                currentAudio.pause(); // Pause the previous song if it's playing
+                currentAudio.pause();
             }
 
             if (audioPlayer.src === songUrl) {
@@ -208,32 +224,16 @@
 
         function addToPlaylist(button) {
             let songDiv = button.parentElement;
-            let songUrl = songDiv.getAttribute("data-src");
             let songTitle = songDiv.querySelector("p").textContent;
             let playlistContainer = document.getElementById("playlistContainer");
             let newSong = document.createElement("div");
             newSong.classList.add("song");
-            newSong.setAttribute("data-src", songUrl);
-            newSong.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button><button class="remove-btn" onclick="removeFromPlaylist(this)">Supprimer</button>`;
+            newSong.innerHTML = `<p>${songTitle}</p><button class="play-btn" onclick="playPause(this)">Play</button><button onclick="removeFromPlaylist(this)">Retirer</button>`;
             playlistContainer.appendChild(newSong);
         }
 
         function removeFromPlaylist(button) {
             button.parentElement.remove();
-        }
-
-        function searchSongs() {
-            let query = document.querySelector('.search-bar').value.toLowerCase();
-            let songs = document.querySelectorAll('.song');
-
-            songs.forEach(function(song) {
-                let title = song.querySelector('p').textContent.toLowerCase();
-                if (title.includes(query)) {
-                    song.style.display = "block";
-                } else {
-                    song.style.display = "none";
-                }
-            });
         }
     </script>
 </body>
