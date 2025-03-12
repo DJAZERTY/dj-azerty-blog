@@ -31,22 +31,24 @@
         }
         .footer-text {
             flex-grow: 1;
-            text-align: center;
+            text-align: left;
         }
 
         .playlist-button {
             background: rgb(0, 255, 255);
             border: none;
-            padding: 8px 15px;
-            font-size: 14px;
+            padding: 8px 15px; /* Même padding que le bouton .song */
+            font-size: 14px; /* Même taille de police */
             font-weight: bold;
             color: #000;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 5px; /* Même arrondi */
+            width: auto; /* Même largeur automatique */
             box-shadow: 0 0 10px #0f0;
             margin-right: 60px;
-            height: 30px;
+            height: auto; /* Laisse la hauteur automatique pour adapter à la taille du texte */
         }
+        
 
         .playlist-button:hover {
             background: rgb(0,0,255);
@@ -102,7 +104,7 @@
             font-size: 16px;
             border: none;
             border-radius: 5px;
-            width: 200px;
+            width: 150px;
             text-align: center;
         }
         .container {
@@ -161,19 +163,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 16px;
         }
 
+        .playlist-container .playlist-header button, 
         .playlist .playlist-header button {
             background: red;
             border: none;
-            padding: 10px;
-            font-size: 16px;
+            padding: 8px 15px; /* Même padding */
+            font-size: 14px; /* Même taille de police */
             font-weight: bold;
             color: #fff;
             cursor: pointer;
-            border-radius: 5px;
-            margin-right: 60px;
+            border-radius: 5px; /* Même arrondi */
+            width: auto; /* Taille automatique en fonction du contenu */
+            margin-right: 10px;
         }
+        
+
 
         .playlist .song {
             background: #333;
@@ -247,19 +254,6 @@
             text-align: center;
 
         }
-
-        .playlist-container .playlist-header button {
-            background: red;
-            color: #fff;
-            font-weight: bold;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-right: 10px;
-            text-align: center;
-        }
-
 
         .playlist-container .playlist-content {
             display: flex;
@@ -353,20 +347,28 @@
             font-size: 20px;
             margin: 10px 10px;
             cursor: pointer;
+            width: 60px;
+            height: 60px;
         }
+        
         #progressContainer {
-            width: 98%;
+            width: calc(100% - 40px); /* Réduit la largeur totale du conteneur de 40px (20px de chaque côté) */
             height: 6px;
             background: #444;
             position: relative;
             cursor: pointer;
-            margin: 20px 0;        }
+            margin-right: 20px;
+        }
         
         #progressBar {
             height: 100%;
-            width: 0%;
+            width: 0%; /* La largeur de la barre de progression peut être ajustée en fonction de la progression */
             background: #00ffcc;
             transition: width 0.1s;
+        }
+        
+        h4 {
+            margin-left: 30px;
         }
         
         
@@ -464,7 +466,7 @@
     <!-- Conteneur de la playlist -->
     <div class="playlist-container" id="playlistContainer">
         <div class="playlist-header">
-            <h2>Your Playlist</h2>
+            <h4>Your Playlist</h4>
             <button onclick="closePlaylist()">Retour</button>
         </div>
         <div class="playlist-content" id="playlistContent" ondrop="drop(event)" ondragover="allowDrop(event)">
