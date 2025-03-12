@@ -12,229 +12,255 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
-        /* HEADER */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
+            box-shadow: 0 0 15px #8a00ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0ff;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 0; /* Supprime le padding */
+        }
+        .song img {
+            height: 100px
+        }
         .header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 80px;
-            background: linear-gradient(135deg, #0044ff, #0088ff);
-            box-shadow: 0 0 15px #0088ff;
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
+            box-shadow: 0 0 15px #8a00ff;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
             z-index: 1000;
         }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-left a img {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+        }
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .header-center img {
+            height: 60px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 40px;
+        }
+
         .search-bar {
-            padding: 8px;
+            padding: 5px;
             font-size: 16px;
-            border-radius: 5px;
             border: none;
-            outline: none;
+            border-radius: 5px;
             width: 200px;
+            text-align: center;
         }
-        .social-icons img {
-            width: 40px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        /* CONTENU */
         .container {
             margin-top: 100px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             padding: 20px;
         }
         .song {
-            background: linear-gradient(135deg, #0044ff, #0088ff);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #0088ff;
-            width: 200px;
-            text-align: center;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .song button {
-            margin-top: 10px;
-            padding: 8px 12px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-        .add-btn {
-            background: #00ff44;
-            color: #000;
-            box-shadow: 0 0 5px #00ff44;
-        }
-        /* PLAYLIST */
-        .playlist-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .playlist-container {
-            width: 80%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-        }
-        .playlist-container .song {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, #0044ff, #0088ff);
-            padding: 10px 15px;
-            border-radius: 5px;
-            width: 100%;
-            box-shadow: 0 0 5px #0088ff;
-            cursor: grab;
-        }
-        .playlist-container .song p {
-            margin: 0;
-            flex-grow: 1;
-            text-align: left;
-        }
-        .remove-btn {
-            background: #f00;
-            color: white;
-            box-shadow: 0 0 5px #f00;
-        }
-        .close-playlist {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #f00;
-            border: none;
+            background: linear-gradient(135deg, #4f00ff, #8a00ff);
             padding: 10px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        /* FOOTER */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(135deg, #0044ff, #0088ff);
-            box-shadow: 0 0 15px #0088ff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #8a00ff;
+            width: 200px;
+            aspect-ratio: 16 / 9;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            color: #0ff;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 0 20px;
         }
-        .playlist-button {
+        button {
             background: #0ff;
             border: none;
-            padding: 8px 15px;
-            font-size: 14px;
+            padding: 10px 20px;
+            font-size: 16px;
             font-weight: bold;
             color: #000;
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 0 10px #0ff;
+            width: 100px;
+        }
+        button:hover {
+            background: #00f;
+            color: #fff;
+            box-shadow: 0 0 15px #00f;
         }
     </style>
 </head>
 <body>
+
     <div class="header">
-        <div class="social-icons">
-            <a href="https://www.youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
-            <a href="https://www.spotify.com" target="_blank"><img src="spotify.png" alt="Spotify"></a>
+        <div class="header-left">
+            <a href="https://www.youtube.com/@DJ--AZERTY" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+            <a href="https://www.spotify.com/" target="_blank">
+                <img src="spotify.png" alt="Spotify">
+            </a>
         </div>
-        <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="searchSongs()">
+
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="filterSongs()">
+        </div>
     </div>
+
+    <h1>DJ AZERTY Release</h1>
 
     <div class="container" id="songContainer">
-        <div class="song" data-src="track1.mp3">
+        <div class="song" data-src="https://ia601707.us.archive.org/4/items/track_202503/Track.mp3">
             <p>Infinity Loop Part I</p>
-            <button class="add-btn" onclick="addToPlaylist(this)">Ajouter à la Playlist</button>
+            <button onclick="playPause(this)">Play</button>
         </div>
-        <div class="song" data-src="track2.mp3">
+        <div class="song" data-src="https://ia600602.us.archive.org/21/items/track_20250304/Track.mp3">
             <p>Black Hat</p>
-            <button class="add-btn" onclick="addToPlaylist(this)">Ajouter à la Playlist</button>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia903206.us.archive.org/35/items/track_20250305/Track.mp3">
+            <p>Breaking Code</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia801507.us.archive.org/14/items/clip_20250305/Clip.mp3">
+            <p>Loop of You</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://archive.org/download/track_20250305_1330/Track.mp3">
+            <p>White Hat</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia600809.us.archive.org/1/items/track_20250305_1357/Track.mp3">
+            <p>Timeless Part I</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia600702.us.archive.org/33/items/track_20250305_1402/Track.mp3">
+            <p>Timeless Part II</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601509.us.archive.org/32/items/track_20250305_1416/Track.mp3">
+            <p>Infinity Loop Part II</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601800.us.archive.org/4/items/track_20250305_1420/Track.mp3">
+            <p>Paint Dream</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia801400.us.archive.org/24/items/track_20250305_1424/Track.mp3">
+            <p>Echoes</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia600702.us.archive.org/26/items/track_20250307/Track.mp3">
+            <p>Lost In Your Fire</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia600107.us.archive.org/7/items/track_20250307_1244/Track.mp3">
+            <p>Light Up the Sky</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia601507.us.archive.org/5/items/track_20250307_1625/Track.mp3">
+            <p>Gravity Shift</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia801609.us.archive.org/24/items/track_20250311/Track.mp3">
+            <p>Fragments of Time</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia800608.us.archive.org/30/items/track_20250311_1210/Track.mp3">
+            <p>Lost in Between Part I</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song" data-src="https://ia600608.us.archive.org/30/items/track_20250311_1210/TrackII.mp3">
+            <p>Lost in Between Part II</p>
+            <button onclick="playPause(this)">Play</button>
+        </div>
+        <div class="song">
+            <img src="logo.png" alt="Logo">
         </div>
     </div>
-
-    <div class="playlist-page" id="playlistPage">
-        <button class="close-playlist" onclick="togglePlaylist()">Fermer</button>
-        <h2>Playlist</h2>
-        <div class="playlist-container" id="playlistContainer"></div>
-        <button onclick="playFirstSong()">Play Playlist</button>
-    </div>
-
     <div class="footer">
-        <button class="playlist-button" onclick="togglePlaylist()">Voir Playlist</button>
         <span>All rights reserved, DJ AZERTY ©</span>
     </div>
 
     <audio id="audioPlayer"></audio>
 
     <script>
-        function playFirstSong() {
-            let playlistContainer = document.getElementById("playlistContainer");
-            if (playlistContainer.children.length > 0) {
-                let firstSong = playlistContainer.children[0];
-                let audioPlayer = document.getElementById("audioPlayer");
-                audioPlayer.src = firstSong.getAttribute("data-src");
+        let audioPlayer = document.getElementById("audioPlayer");
+        let currentPlayingButton = null;
+
+        function playPause(button) {
+            let songDiv = button.parentElement;
+            let songUrl = songDiv.getAttribute("data-src");
+
+            if (audioPlayer.src !== songUrl) {
+                audioPlayer.src = songUrl;
                 audioPlayer.play();
-
-                audioPlayer.onended = function() {
-                    let nextSong = firstSong.nextElementSibling;
-                    if (nextSong) {
-                        playFirstSong(nextSong);
-                    }
-                };
+                updateButtonState(button, "Pause");
+            } else {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    updateButtonState(button, "Pause");
+                } else {
+                    audioPlayer.pause();
+                    updateButtonState(button, "Play");
+                }
             }
+
+            if (currentPlayingButton && currentPlayingButton !== button) {
+                currentPlayingButton.textContent = "Play";
+            }
+
+            currentPlayingButton = button;
         }
 
-        function addToPlaylist(button) {
-            let songDiv = button.parentElement.cloneNode(true);
-            songDiv.querySelector("button").remove();
-            let removeBtn = document.createElement("button");
-            removeBtn.textContent = "Retirer";
-            removeBtn.className = "remove-btn";
-            removeBtn.onclick = () => songDiv.remove();
-            songDiv.appendChild(removeBtn);
-            document.getElementById("playlistContainer").appendChild(songDiv);
+        function updateButtonState(button, state) {
+            button.textContent = state;
         }
 
-        function searchSongs() {
-            let searchQuery = document.querySelector(".search-bar").value.toLowerCase();
-            document.querySelectorAll(".song").forEach(song => {
-                song.style.display = song.querySelector("p").textContent.toLowerCase().includes(searchQuery) ? "block" : "none";
+        audioPlayer.addEventListener("ended", function() {
+            if (currentPlayingButton) {
+                currentPlayingButton.textContent = "Play";
+            }
+        });
+
+        function filterSongs() {
+            let input = document.querySelector(".search-bar").value.toLowerCase();
+            let songs = document.querySelectorAll(".song");
+
+            songs.forEach(song => {
+                let title = song.querySelector("p").textContent.toLowerCase();
+                song.style.display = title.includes(input) ? "flex" : "none";
             });
         }
-
-        function togglePlaylist() {
-            let playlistPage = document.getElementById("playlistPage");
-            playlistPage.style.display = (playlistPage.style.display === "flex") ? "none" : "flex";
-        }
     </script>
+
 </body>
 </html>
