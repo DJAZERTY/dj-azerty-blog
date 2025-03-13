@@ -128,7 +128,7 @@
             align-items: center;
         }
         .last_song {
-            background: #0a0a0a;
+            background: rgba(0, 0, 0, 0.0);
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 10px #0a0a0a;
@@ -755,7 +755,7 @@
                     songDiv.setAttribute("data-src", song.src);
                     songDiv.innerHTML = `<p>${song.title}</p>
                                          <button onclick="removeFromPlaylist(this)">Retirer</button>`;
-        
+                                         
                     addDragAndDropEvents(songDiv);
         
                     playlistContent.appendChild(songDiv);
