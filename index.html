@@ -15,6 +15,9 @@
             margin: 0;
             padding: 0;
         }
+        body.noscroll {
+            overflow: hidden;
+        }
         .footer {
             position: fixed;
             bottom: 0;
@@ -563,10 +566,12 @@
         
         function openPlaylist() {
             document.getElementById("playlistContainer").style.display = "block";
+            document.body.classList.add("noscroll");
         }
         
         function closePlaylist() {
             document.getElementById("playlistContainer").style.display = "none";
+            document.body.classList.remove("noscroll");
         }
         
         function addToPlaylist(songTitle, songSrc) {
