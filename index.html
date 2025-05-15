@@ -131,6 +131,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 10px
         }
         .last_song {
             background: rgba(0, 0, 0, 0.0);
@@ -400,8 +401,15 @@
             margin-left: 30px;
         }
         
-        
+        .container .song img{
+            border-radius: 10px;
+            margin-top: 10px;
+        }
 
+        .container .song button{
+            margin-top: 10px;
+        }
+    
     </style>
 </head>
 <body>
@@ -426,18 +434,18 @@
 
     <div class="container">
         <div class="song" data-src="https://ia601900.us.archive.org/23/items/eternal-ring_202505/Eternal%20Ring.mp3">
-            <p>Eternal Ring</p>
+            <img src="png/Eternal Ring.png" alt="Eternal Ring">
             <button onclick="window.open('https://www.youtube.com/watch?v=8N5d4tWz83E', '_blank')">See Clip</button>
             <button onclick="addToPlaylist('Eternal Ring', 'https://ia601900.us.archive.org/23/items/eternal-ring_202505/Eternal%20Ring.mp3')">Add to Playlist</button>
         </div>
         
         <div class="song" data-src="https://ia800800.us.archive.org/16/items/gravity-shift/Gravity%20Shift.mp3">
-            <p>Gravity Shift</p>
+            <img src="png/Gravity Shift.png" alt="Gravity Shift">
             <button onclick="window.open('https://www.youtube.com/watch?v=Dz22eaLBDO8', '_blank')">See Clip</button>
             <button onclick="addToPlaylist('Gravity Shift', 'https://ia800800.us.archive.org/16/items/gravity-shift/Gravity%20Shift.mp3')">Add to Playlist</button>
         </div>
         <div class="song" data-src="https://ia600303.us.archive.org/32/items/unknown-side/Unknown%20Side.mp3">
-            <p>Unknown Side</p>
+            <img src="png/Unknown Side.png" alt="Unknown Side">
             <button onclick="window.open('https://www.youtube.com/@DJ--AZERTY', '_blank')">Upcoming Clip</button>
             <button onclick="addToPlaylist('Unknown Side', 'https://ia600303.us.archive.org/32/items/unknown-side/Unknown%20Side.mp3')">Add to Playlist</button>
         </div>
